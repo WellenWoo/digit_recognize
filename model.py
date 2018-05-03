@@ -51,6 +51,17 @@ def tester(fn,clf):
     ans = clf.predict(X_test)
     return ans
 
+def get_data():
+    '''用sklearn提供的函数下载mnist数据集'''
+    from sklearn.datasets import fetch_mldata
+    from sklearn.cross_validation import train_test_split
+    data = fetch_mldata('MNIST original', data_home='dataset\mnist_data')
+    X, y = data.data, data.target
+    X_train, X_test, y_train, y_test = train_test_split(X, y,test_size = 0.65)
+    return X_train,y_train
+
+##X_train,y_label = get_data()
+
 ##X_train,y_label = split_data(file_path)
 ##clf = knn_clf(X_train,y_label)
 ##save_model(clf,'mnist_knn1000.m')
