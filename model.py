@@ -37,7 +37,7 @@ def knn_clf(X_train,label):
 
 def save_model(model,output_name):
     '''保存模型'''
-    joblib.dump(model,ouotput_name)
+    joblib.dump(model,ouotput_name,compress = 1)
 
 def load_model(model_path):
     '''加载模型'''
