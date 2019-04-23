@@ -10,7 +10,7 @@ import numpy as np
 import random
 from sklearn.neighbors import KNeighborsClassifier as knn
 from sklearn.externals import joblib
-
+import wx.lib.agw.gradientbutton as gbtn
 import model
 """
 recognize the digits basic on sklearn
@@ -29,11 +29,9 @@ class MainWindow(wx.Frame):
     def __init__(self,parent,title):
         wx.Frame.__init__(self,parent,title=title,size=(600,-1))
         static_font = wx.Font(12, wx.SWISS, wx.NORMAL, wx.NORMAL)
-        static_font2 = wx.Font(10, wx.SWISS, wx.NORMAL, wx.NORMAL)
         
         Size = namedtuple("Size",['x','y'])
         s = Size(100,50)
-        sm = Size(100,25)
 
         self.fileName = None
         self.model = model
@@ -49,12 +47,12 @@ class MainWindow(wx.Frame):
         self.out1 = wx.TextCtrl(self,-1,size = (s.x,3*s.y))
 
         '''create button'''
-        self.sizer0 = wx.FlexGridSizer(rows=1, hgap=4, vgap=2)
+        self.sizer0 = wx.FlexGridSizer(cols=4, hgap=4, vgap=2)
         self.sizer0.Add(self.in1)
         
         buttons = []
         for i,label in enumerate(b_labels):
-            b = wx.Button(self, id = i,label = label,size = (1.5*s.x,s.y))
+            b = gbtn.GradientButton(self, id = i,label = label,size = (1.5*s.x,s.y))
             buttons.append(b)
             self.sizer0.Add(b)      
 
@@ -98,7 +96,10 @@ class MainWindow(wx.Frame):
             defaultDir=os.getcwd(), 
             defaultFile="",
             wildcard=wildcard,
-            style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR
+#            style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR #wx2.8
+            style = wx.FD_OPEN | wx.FD_MULTIPLE |     #wx4.0
+                    wx.FD_CHANGE_DIR | wx.FD_FILE_MUST_EXIST |
+                    wx.FD_PREVIEW
             )
         if dlg.ShowModal() == wx.ID_OK:
             paths = dlg.GetPaths()
