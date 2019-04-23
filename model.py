@@ -26,7 +26,6 @@ def split_data(paths):
     for i,name in enumerate(d0):
         y.append(name[0])
         X.append(img2vec(name))
-        dataset = np.array([X,y])
     return X,y
 
 def knn_clf(X_train,label):
@@ -37,7 +36,7 @@ def knn_clf(X_train,label):
 
 def save_model(model,output_name):
     '''保存模型'''
-    joblib.dump(model,ouotput_name,compress = 1)
+    joblib.dump(model,output_name,compress = 1)
 
 def load_model(model_path):
     '''加载模型'''
@@ -60,8 +59,10 @@ def get_data():
     X_train, X_test, y_train, y_test = train_test_split(X, y,test_size = 0.65)
     return X_train,y_train
 
-##X_train,y_label = get_data()
-
-##X_train,y_label = split_data(file_path)
-##clf = knn_clf(X_train,y_label)
-##save_model(clf,'mnist_knn1000.m')
+def train_model():
+    """训练模型;"""
+    X_train,y_label = get_data()
+    
+    X_train,y_label = split_data(file_path)
+    clf = knn_clf(X_train,y_label)
+    save_model(clf,'mnist_knn1000.m')
