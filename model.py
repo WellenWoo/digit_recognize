@@ -26,7 +26,7 @@ def split_data(paths, fmt):
     fn_list = glob(paths + os.sep+"*." + fmt)
     X = []
     y = []
-    d0 = random.sample(fn_list,10)
+    d0 = random.sample(fn_list,1000)
     for i,name in enumerate(d0):
         y.append(os.path.basename(name)[0])
         X.append(img2vec((name)))
