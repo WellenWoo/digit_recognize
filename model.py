@@ -1,11 +1,15 @@
 #-*- coding: utf-8 -*-
 
+__author__ = 'wellenwoo'
+__mail__ = 'wellenwoo@163.com'
+
 import numpy as np
 import os
 from PIL import Image
 import random
 from sklearn.neighbors import KNeighborsClassifier as knn
 from sklearn.externals import joblib
+from glob import glob
 
 file_path = r'dataset\mnist_data'
 
@@ -17,15 +21,15 @@ def img2vec(fname):
     vec = tmp.ravel()
     return vec
 
-def split_data(paths):
+def split_data(paths, fmt):
     '''随机抽取1000张图片作为训练集'''
-    fn_list = os.llistdir(paths)
+    fn_list = glob(paths + os.sep+"*." + fmt)
     X = []
     y = []
-    d0 = random.sample(fn_list,1000)
+    d0 = random.sample(fn_list,10)
     for i,name in enumerate(d0):
-        y.append(name[0])
-        X.append(img2vec(name))
+        y.append(os.path.basename(name)[0])
+        X.append(img2vec((name)))
     return X,y
 
 def knn_clf(X_train,label):
@@ -63,6 +67,6 @@ def train_model():
     """训练模型;"""
     X_train,y_label = get_data()
     
-    X_train,y_label = split_data(file_path)
+    X_train,y_label = split_data(file_path， "png")
     clf = knn_clf(X_train,y_label)
     save_model(clf,'mnist_knn1000.m')
