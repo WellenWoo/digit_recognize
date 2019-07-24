@@ -4,6 +4,7 @@ recognize the digits basic on sklearn
 
 0. 基于scikit-learn knn算法的手写数字识别器，训练数据集为mnist。
 1. 新增svm算法训练的脚本.
+3. 现在mlp算法训练的脚本.
 
 另外，可以识别二维码。
 
