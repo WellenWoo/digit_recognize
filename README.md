@@ -6,6 +6,7 @@ recognize the digits basic on sklearn
 1. 新增svm算法训练的脚本.
 2. 新增mlp算法训练的脚本.
 3. 新增基于pytorch实现的CNN算法训练的脚本.
+4. 新增基于keras实现的CNN算法训练的脚本.
 
 另外，可以识别二维码。
 
