@@ -4,59 +4,11 @@ Created on Sun May  5 11:16:16 2019
 @author: WellenWoo
 """
 import numpy as np
-import os
-from PIL import Image
 from sklearn.svm import SVC
 from sklearn.externals import joblib
 from sklearn.metrics import confusion_matrix, classification_report
-import glob
 import time
-
-class Preprocessor(object):
-    """训练前的预处理"""
-    def get_files(self,fpath,fmt = "*.png"):
-        """获取指定文件夹中指定格式的文件列表;
-        paras:
-            filepath: str, file path,
-            formats: str, file format,
-        return: list;"""
-        tmp = os.path.join(fpath,fmt)
-        fs = glob.glob(tmp)
-        return fs
-    
-    def get_data_labels(self, fpath = "train"):
-        paths = glob.glob(fpath + os.sep + "*")
-        X = []
-        y = []
-        for fpath in paths:
-            fs = self.get_files(fpath)
-            for fn in fs:
-                X.append(self.img2vec(fn))
-            label = np.repeat(int(os.path.basename(fpath)), len(fs))
-            y.append(label)
-        labels = y[0]
-        for i in range(len(y) - 1):
-            labels = np.append(labels, y[i + 1])
-        return np.array(X), labels
-    
-    def img2vec(self, fn):
-        '''将jpg等格式的图片转为向量'''
-        im = Image.open(fn).convert('L')
-        im = im.resize((28,28))
-        tmp = np.array(im)
-        vec = tmp.ravel()
-        return vec 
-    
-    def save_data(self, X_data, y_data, fn = "mnist_train_data"):
-        """将数据保存到本地;"""
-        np.savez_compressed(fn, X = X_data, y = y_data)
-        
-    def load_data(self, fn = "mnist_train_data.npz"):
-        """从本地加载数据;"""
-        data = np.load(fn)
-        X_data = data["X"]
-        y_data = data["y"]
-        return X_data, y_data
+from utils import Preprocessor
 
 class Trainer(object):
     '''训练器;'''
