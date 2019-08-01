@@ -4,8 +4,9 @@ Created on Sun May  5 11:40:32 2019
 @author: WellenWoo
 """
 from sklearn.neural_network import MLPClassifier
-from model_svm import Preprocessor, Trainer, Tester
+from model_svm import Trainer, Tester
 import time
+from utils import Preprocessor
 
 class Trainer_nn(Trainer):
     def mlp(self, x_train, y_train):
