@@ -9,25 +9,7 @@ import numpy as np
 import torchvision as tv
 import torch.nn.functional as F
 import torchsnooper
-
-def load_img(fpath, batch_size = 64, workers = 4):
-    """将文件夹中不同子文件夹的图片转为数据集;
-    传入的参数为r'mnist';
-    子文件夹分别为r'mnist/0',r'mnist/1,...';
-    """
-    trans = tv.transforms.Compose([
-            tv.transforms.Grayscale(),
-            tv.transforms.ToTensor()])
-    
-    dataset = tv.datasets.ImageFolder(fpath, transform=trans)
-    
-    dataloader = torch.utils.data.DataLoader(dataset,
-                                             batch_size=batch_size,
-                                             shuffle=True,
-                                             num_workers= workers,
-                                             drop_last = True)
-    
-    return dataloader
+from utils import load_img
 
 class CNN(torch.nn.Module):
     def __init__(self):
@@ -132,6 +114,6 @@ def run():
     test_loader = load_img(r"D:\..MNIST_data\test")  
     
     clf = tr.net(train_loader)
-    acc = ts.get_acc(clf, test_loader)
+    acc = ts.get_acc(clf, test_loader) #acc=99.39%
     
     return clf, acc
