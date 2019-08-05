@@ -57,6 +57,12 @@ def load_img(fpath, batch_size = 64, workers = 4):
     
     return dataloader
 
+def file2tensor(fn, device = "cuda:0"):
+    """将图像转为torch的tensor;"""
+    im = Image.open(fn)
+    ar = torch.from_numpy(np.array(im)).reshape((1, 1, *im.size)).float().to(device)
+    return ar
+
 class Preprocessor(object):
     """训练前的预处理"""
     def get_files(self,fpath,fmt = "*.png"):
