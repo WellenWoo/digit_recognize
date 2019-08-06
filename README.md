@@ -7,6 +7,7 @@ recognize the digits basic on sklearn
 2. 新增mlp算法训练的脚本.
 3. 新增基于pytorch实现的CNN算法训练的脚本.
 4. 新增基于keras实现的CNN算法训练的脚本.
+5. 新增迁移学习的脚本.
 
 另外，可以识别二维码。
 
