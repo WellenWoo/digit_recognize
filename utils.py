@@ -76,7 +76,7 @@ class Preprocessor(object):
         return fs
     
     def get_data_labels(self, fpath = "train"):
-        paths = glob.glob(fpath + os.sep + "*")
+        paths = glob(fpath + os.sep + "*")
         X = []
         y = []
         for fpath in paths:
